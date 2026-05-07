@@ -4,19 +4,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV = [
-  { href: "/",            label: "Search" },
-  { href: "/consumer",   label: "Consumer" },
-  { href: "/enterprise", label: "Enterprise" },
+  { href: "/",                    label: "Search",     match: "/" },
+  { href: "/?type=consumer",      label: "Consumer",   match: "/consumer" },
+  { href: "/?type=enterprise",    label: "Enterprise", match: "/enterprise" },
 ];
 
 export function NavLinks() {
   const pathname = usePathname();
   return (
     <nav className="flex gap-1 text-sm">
-      {NAV.map(({ href, label }) => {
+      {NAV.map(({ href, label, match }) => {
         const active =
-          href === "/" ? pathname === "/"
-          : pathname === href || pathname.startsWith(href + "/");
+          match === "/" ? pathname === "/"
+          : pathname.startsWith(match);
         return (
           <Link
             key={href}
