@@ -114,7 +114,7 @@ export default async function ConsumerPage({
                 <div className="text-sm font-medium">Customer segment</div>
                 <div className="text-xs text-muted-foreground mt-0.5">{p.segment_description}</div>
               </div>
-              <span className="text-xs bg-slate-100 px-2 py-1 rounded font-mono">{p.segment_code}</span>
+              <span className="text-xs bg-muted border px-2 py-1 rounded font-mono">{p.segment_code}</span>
             </div>
             <div className="text-sm font-semibold mb-3">{p.segment_label}</div>
             <div className="grid grid-cols-2 gap-3">
@@ -129,7 +129,7 @@ export default async function ConsumerPage({
                       <span className="text-muted-foreground">{label}</span>
                       <span className="font-medium">{pct}%</span>
                     </div>
-                    <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-muted rounded-full overflow-hidden">
                       <div
                         className="h-full bg-primary rounded-full"
                         style={{ width: `${pct}%` }}
@@ -156,7 +156,7 @@ export default async function ConsumerPage({
                 { label: "Data overage",       val: p.data_overage_flag ? "⚠ Yes" : "No" },
                 { label: "5G capable",         val: p.is_5g_capable ? "Yes" : "No" },
               ].map(({ label, val }) => (
-                <div key={label} className="rounded-md bg-slate-50 p-2.5">
+                <div key={label} className="rounded-md bg-muted p-2.5">
                   <div className="text-muted-foreground mb-0.5">{label}</div>
                   <div className="font-medium">{val}</div>
                 </div>
@@ -167,11 +167,11 @@ export default async function ConsumerPage({
           {/* Interaction history */}
           {interactions.length > 0 && (
             <div className="rounded-lg border bg-card overflow-hidden">
-              <div className="px-4 py-3 border-b bg-slate-50 text-sm font-medium">
+              <div className="px-4 py-3 border-b bg-muted text-sm font-medium">
                 Interaction history
               </div>
               <table className="w-full text-sm">
-                <thead className="bg-slate-100 border-b text-left">
+                <thead className="bg-muted border-b text-left">
                   <tr>
                     <th className="px-4 py-2 font-medium text-xs">Date</th>
                     <th className="px-4 py-2 font-medium text-xs">Channel</th>
@@ -183,7 +183,7 @@ export default async function ConsumerPage({
                 </thead>
                 <tbody>
                   {interactions.map((i: any) => (
-                    <tr key={i.interaction_id} className="border-b hover:bg-slate-50">
+                    <tr key={i.interaction_id} className="border-b hover:bg-muted">
                       <td className="px-4 py-2 text-xs text-muted-foreground whitespace-nowrap">{fmtDate(i.created_at)}</td>
                       <td className="px-4 py-2 text-xs">{i.channel}</td>
                       <td className="px-4 py-2 text-xs max-w-[200px] truncate">{i.nba_offer_presented ?? "—"}</td>
@@ -192,7 +192,7 @@ export default async function ConsumerPage({
                           i.nba_outcome === "ACCEPTED"   ? "bg-green-50 text-green-700" :
                           i.nba_outcome === "ESCALATED"  ? "bg-red-50 text-red-700"    :
                           i.nba_outcome === "REJECTED"   ? "bg-orange-50 text-orange-700" :
-                          "bg-slate-100 text-slate-600"
+                          "bg-muted text-muted-foreground"
                         }`}>{i.nba_outcome ?? "—"}</span>
                       </td>
                       <td className="px-4 py-2 text-xs text-muted-foreground">{i.agent_id}</td>

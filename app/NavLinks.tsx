@@ -22,7 +22,7 @@ export function NavLinks() {
             key={href}
             href={href}
             className={`px-3 py-1.5 rounded-md transition ${
-              active ? "bg-slate-900 text-white" : "hover:bg-slate-100"
+              active ? "bg-zinc-800 text-white" : "hover:bg-zinc-800 text-zinc-300"
             }`}
           >
             {label}

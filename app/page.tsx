@@ -62,7 +62,7 @@ export default async function HomePage({
                 className={`px-4 py-2 rounded-md text-sm font-medium border transition ${
                   type === t
                     ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-card hover:bg-slate-50"
+                    : "bg-card hover:bg-muted"
                 }`}
               >
                 {t === "consumer" ? "👤 Consumer" : "🏢 Enterprise"}
@@ -102,11 +102,11 @@ export default async function HomePage({
       {/* Consumer results */}
       {type === "consumer" && q && (
         <div className="rounded-lg border bg-card overflow-hidden">
-          <div className="px-4 py-3 border-b bg-slate-50 text-sm font-medium">
+          <div className="px-4 py-3 border-b bg-muted text-sm font-medium">
             Consumer results — {consumers.length} found
           </div>
           <table className="w-full text-sm">
-            <thead className="bg-slate-100 border-b text-left">
+            <thead className="bg-muted border-b text-left">
               <tr>
                 <th className="px-4 py-2.5 font-medium">Customer</th>
                 <th className="px-4 py-2.5 font-medium">MSISDN</th>
@@ -120,7 +120,7 @@ export default async function HomePage({
             </thead>
             <tbody>
               {consumers.map((c) => (
-                <tr key={c.customer_id} className="border-b hover:bg-slate-50">
+                <tr key={c.customer_id} className="border-b hover:bg-muted">
                   <td className="px-4 py-2.5">
                     <div className="font-medium">{c.full_name}</div>
                     <div className="text-xs text-muted-foreground">{c.customer_id}</div>
@@ -133,7 +133,7 @@ export default async function HomePage({
                   <td className="px-4 py-2.5 text-right text-sm">{fmtZAR(c.monthly_plan_fee)}</td>
                   <td className="px-4 py-2.5 text-xs text-muted-foreground">{c.province}</td>
                   <td className="px-4 py-2.5">
-                    <span className="text-xs bg-slate-100 px-1.5 py-0.5 rounded">{c.segment_label ?? "—"}</span>
+                    <span className="text-xs bg-muted px-1.5 py-0.5 rounded border">{c.segment_label ?? "—"}</span>
                   </td>
                   <td className="px-4 py-2.5">
                     <span className={`text-xs px-1.5 py-0.5 rounded border font-medium ${churnColor(c.churn_risk_score)}`}>
@@ -162,11 +162,11 @@ export default async function HomePage({
       {/* Enterprise results */}
       {type === "enterprise" && q && (
         <div className="rounded-lg border bg-card overflow-hidden">
-          <div className="px-4 py-3 border-b bg-slate-50 text-sm font-medium">
+          <div className="px-4 py-3 border-b bg-muted text-sm font-medium">
             Enterprise results — {enterprises.length} found
           </div>
           <table className="w-full text-sm">
-            <thead className="bg-slate-100 border-b text-left">
+            <thead className="bg-muted border-b text-left">
               <tr>
                 <th className="px-4 py-2.5 font-medium">Account</th>
                 <th className="px-4 py-2.5 font-medium">Industry</th>
@@ -180,7 +180,7 @@ export default async function HomePage({
             </thead>
             <tbody>
               {enterprises.map((e) => (
-                <tr key={e.account_id} className="border-b hover:bg-slate-50">
+                <tr key={e.account_id} className="border-b hover:bg-muted">
                   <td className="px-4 py-2.5">
                     <div className="font-medium">{e.account_name}</div>
                     <div className="text-xs text-muted-foreground">{e.account_id}</div>

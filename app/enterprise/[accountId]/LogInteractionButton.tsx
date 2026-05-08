@@ -60,7 +60,7 @@ export function LogInteractionButton({
       {!open ? (
         <button
           onClick={() => setOpen(true)}
-          className="w-full px-4 py-2 rounded-md border bg-card hover:bg-slate-50 text-sm"
+          className="w-full px-4 py-2 rounded-md border bg-card hover:bg-muted text-sm"
         >
           Log interaction
         </button>

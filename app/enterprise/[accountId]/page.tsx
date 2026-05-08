@@ -136,7 +136,7 @@ export default async function EnterprisePage({
                         ? "bg-green-50 border-green-200 text-green-800"
                         : gapExists
                         ? "bg-amber-50 border-amber-200 text-amber-800"
-                        : "bg-slate-50 border-slate-200 text-slate-500"
+                        : "bg-muted border text-muted-foreground"
                     }`}
                   >
                     <div className="text-lg mb-1">{hasIt ? "✓" : gapExists ? "⚠" : "—"}</div>
@@ -171,7 +171,7 @@ export default async function EnterprisePage({
                   <div className="text-xs font-medium text-muted-foreground mb-2">Recommended products</div>
                   <div className="grid grid-cols-2 gap-2">
                     {products.map((pr) => (
-                      <div key={pr.product_id} className="flex items-center gap-2 text-xs bg-slate-50 rounded-md px-3 py-2">
+                      <div key={pr.product_id} className="flex items-center gap-2 text-xs bg-muted rounded-md px-3 py-2">
                         <span className="font-mono text-muted-foreground">{pr.product_id}</span>
                         <span className="flex-1">{pr.name}</span>
                         <span className="font-semibold">× {pr.qty}</span>
@@ -245,9 +245,9 @@ export default async function EnterprisePage({
           {/* Interaction history */}
           {interactions.length > 0 && (
             <div className="rounded-lg border bg-card overflow-hidden">
-              <div className="px-4 py-3 border-b bg-slate-50 text-sm font-medium">Interaction history</div>
+              <div className="px-4 py-3 border-b bg-muted text-sm font-medium">Interaction history</div>
               <table className="w-full text-sm">
-                <thead className="bg-slate-100 border-b text-left">
+                <thead className="bg-muted border-b text-left">
                   <tr>
                     <th className="px-4 py-2 font-medium text-xs">Date</th>
                     <th className="px-4 py-2 font-medium text-xs">Channel</th>
@@ -259,7 +259,7 @@ export default async function EnterprisePage({
                 </thead>
                 <tbody>
                   {interactions.map((i: any) => (
-                    <tr key={i.interaction_id} className="border-b hover:bg-slate-50">
+                    <tr key={i.interaction_id} className="border-b hover:bg-muted">
                       <td className="px-4 py-2 text-xs text-muted-foreground whitespace-nowrap">{fmtDate(i.created_at)}</td>
                       <td className="px-4 py-2 text-xs">{i.channel}</td>
                       <td className="px-4 py-2 text-xs max-w-[180px] truncate">{i.nba_offer_presented ?? "—"}</td>
@@ -268,7 +268,7 @@ export default async function EnterprisePage({
                           i.nba_outcome === "DEAL_PROGRESSED"     ? "bg-green-50 text-green-700" :
                           i.nba_outcome === "FOLLOW_UP_SCHEDULED" ? "bg-blue-50 text-blue-700"  :
                           i.nba_outcome === "OBJECTION_RAISED"    ? "bg-orange-50 text-orange-700" :
-                          "bg-slate-100 text-slate-600"
+                          "bg-muted text-muted-foreground"
                         }`}>{i.nba_outcome?.replace(/_/g, " ") ?? "—"}</span>
                       </td>
                       <td className="px-4 py-2 text-xs text-muted-foreground">{i.agent_id}</td>
