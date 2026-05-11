@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { getEnterprise360 } from "@/lib/db";
-import { fmtZAR, fmtDate, healthColor, urgencyColor, renewalUrgency } from "@/lib/format";
+import { fmtUSD, fmtDate, fmtSalesTax, healthColor, urgencyColor, renewalUrgency } from "@/lib/format";
 import { notFound } from "next/navigation";
 import { BundlePitchButton } from "./BundlePitchButton";
 import { LogInteractionButton } from "./LogInteractionButton";
@@ -32,7 +32,7 @@ export default async function EnterprisePage({
     bundle_name: p.bundle_name ?? "",
     bundle_rationale: p.bundle_rationale ?? "",
     recommended_products: products.map((pr) => ({ name: pr.name, qty: pr.qty })),
-    estimated_arr_zar: parseFloat(p.estimated_arr_zar ?? "0"),
+    estimated_arr_usd: parseFloat(p.estimated_arr_usd ?? "0"),
     uplift_vs_current_pct: parseFloat(p.uplift_vs_current_pct ?? "0"),
     months_to_renewal: p.months_to_renewal ?? 0,
     urgency: p.urgency ?? "MEDIUM",
@@ -64,7 +64,7 @@ export default async function EnterprisePage({
           <div className="flex items-center gap-2 mt-1.5 flex-wrap">
             <span className="text-xs text-muted-foreground">{p.industry_label}</span>
             <span className="text-muted-foreground">·</span>
-            <span className="text-xs text-muted-foreground">{p.billing_province}</span>
+            <span className="text-xs text-muted-foreground">{p.billing_state}</span>
             <span className="text-muted-foreground">·</span>
             <span className="text-xs text-muted-foreground">{p.employee_count?.toLocaleString()} employees</span>
             <span className="text-muted-foreground">·</span>
@@ -74,7 +74,10 @@ export default async function EnterprisePage({
             </span>
           </div>
           <div className="text-xs text-muted-foreground mt-1">
-            Contract: {fmtDate(p.contract_start)} → {fmtDate(p.contract_end)} · ACV {fmtZAR(p.contract_annual_value)}
+            Contract: {fmtDate(p.contract_start)} → {fmtDate(p.contract_end)} · ACV {fmtUSD(p.contract_annual_value)} (pre-tax)
+          </div>
+          <div className="text-xs text-muted-foreground mt-1">
+            {p.time_zone ?? "America/New_York"} · State sales tax {fmtSalesTax(p.sales_tax_pct)}
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -91,11 +94,11 @@ export default async function EnterprisePage({
       <div className="grid grid-cols-5 gap-4 mb-7">
         <div className="rounded-lg border bg-card p-4">
           <div className="text-xs text-muted-foreground">Annual contract value</div>
-          <div className="text-xl font-semibold mt-1">{fmtZAR(p.contract_annual_value)}</div>
+          <div className="text-xl font-semibold mt-1">{fmtUSD(p.contract_annual_value)}</div>
         </div>
         <div className="rounded-lg border bg-card p-4">
           <div className="text-xs text-muted-foreground">Bundle ARR potential</div>
-          <div className="text-xl font-semibold mt-1 text-blue-700">{fmtZAR(p.estimated_arr_zar)}</div>
+          <div className="text-xl font-semibold mt-1 text-blue-700">{fmtUSD(p.estimated_arr_usd)}</div>
           <div className="text-xs text-muted-foreground mt-0.5">+{parseFloat(p.uplift_vs_current_pct ?? "0").toFixed(0)}% uplift</div>
         </div>
         <div className="rounded-lg border bg-card p-4">
@@ -161,8 +164,8 @@ export default async function EnterprisePage({
                   </div>
                 </div>
                 <div className="text-right ml-4 shrink-0">
-                  <div className="text-xs text-muted-foreground">Est. MRR</div>
-                  <div className="text-lg font-semibold text-blue-700">{fmtZAR(p.estimated_mrr_zar)}</div>
+                  <div className="text-xs text-muted-foreground">Est. MRR (pre-tax)</div>
+                  <div className="text-lg font-semibold text-blue-700">{fmtUSD(p.estimated_mrr_usd)}</div>
                   <div className="text-xs text-muted-foreground mt-0.5">Bundle fit: {parseFloat(p.bundle_fit_score ?? "0").toFixed(2)}</div>
                 </div>
               </div>
@@ -191,23 +194,23 @@ export default async function EnterprisePage({
                 <dl className="space-y-2 text-xs">
                   <div className="flex justify-between">
                     <dt className="text-muted-foreground">Outstanding AR</dt>
-                    <dd className={`font-medium ${parseFloat(p.outstanding_ar_zar) > 0 ? "text-amber-600" : ""}`}>
-                      {fmtZAR(p.outstanding_ar_zar)}
+                    <dd className={`font-medium ${parseFloat(p.outstanding_ar_usd) > 0 ? "text-amber-600" : ""}`}>
+                      {fmtUSD(p.outstanding_ar_usd)}
                     </dd>
                   </div>
                   <div className="flex justify-between">
                     <dt className="text-muted-foreground">Overdue</dt>
-                    <dd className={`font-medium ${parseFloat(p.overdue_value_zar) > 0 ? "text-red-600" : ""}`}>
-                      {fmtZAR(p.overdue_value_zar)}
+                    <dd className={`font-medium ${parseFloat(p.overdue_value_usd) > 0 ? "text-red-600" : ""}`}>
+                      {fmtUSD(p.overdue_value_usd)}
                     </dd>
                   </div>
                   <div className="flex justify-between">
                     <dt className="text-muted-foreground">Expected cash (30d)</dt>
-                    <dd>{fmtZAR(p.expected_cash_30d_zar)}</dd>
+                    <dd>{fmtUSD(p.expected_cash_30d_usd)}</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt className="text-muted-foreground">Expected cash (60d)</dt>
-                    <dd>{fmtZAR(p.expected_cash_60d_zar)}</dd>
+                    <dd>{fmtUSD(p.expected_cash_60d_usd)}</dd>
                   </div>
                 </dl>
               </div>

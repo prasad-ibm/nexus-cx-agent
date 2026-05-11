@@ -1,5 +1,5 @@
 -- =============================================================================
--- TELCO MEDALLION — PostgreSQL VIEWS
+-- TELCO MEDALLION — PostgreSQL VIEWS  (US localization)
 -- =============================================================================
 
 CREATE OR REPLACE VIEW telco_medallion.v_consumer_360 AS
@@ -13,9 +13,11 @@ SELECT
     c.activation_date,
     c.device_model,
     c.device_os,
-    c.province,
+    c.state,
     c.income_band,
     c.language_pref,
+    c.time_zone,
+    c.sales_tax_pct,
     p.tenure_months,
     p.is_5g_capable,
     p.avg_daily_data_mb,
@@ -83,8 +85,8 @@ SELECT
     b.network_slice_type,
     b.security_gateway_sites,
     b.sdwan_sites,
-    b.estimated_mrr_zar,
-    b.estimated_arr_zar,
+    b.estimated_mrr_usd,
+    b.estimated_arr_usd,
     b.uplift_vs_current_pct,
     b.bundle_fit_score,
     b.recommended_action,
@@ -95,14 +97,16 @@ SELECT
     h.revenue_leakage_flag,
     h.credit_risk_flag,
     h.provisioning_risk_flag,
-    h.overdue_value_zar,
-    h.outstanding_ar_zar,
-    h.expected_cash_30d_zar,
-    h.expected_cash_60d_zar,
+    h.overdue_value_usd,
+    h.outstanding_ar_usd,
+    h.expected_cash_30d_usd,
+    h.expected_cash_60d_usd,
     c.start_date         AS contract_start,
     c.end_date           AS contract_end,
     c.account_manager,
-    c.billing_province
+    c.billing_state,
+    c.time_zone,
+    c.sales_tax_pct
 FROM telco_medallion.silver_enterprise_account_summary s
 LEFT JOIN telco_medallion.gold_enterprise_bundle_recommendation b USING (account_id)
 LEFT JOIN telco_medallion.gold_finance_o2c_health h USING (account_id)
@@ -115,7 +119,7 @@ SELECT
     b.account_name,
     b.bundle_name,
     b.bundle_fit_score,
-    b.estimated_arr_zar   AS bundle_arr_potential,
+    b.estimated_arr_usd   AS bundle_arr_potential,
     h.o2c_health_score,
     h.health_label,
     h.dso_days,

@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "setup-db": "npx ts-node -P tsconfig.scripts.json scripts/setup-db.ts",
-    "check-db": "npx ts-node -P tsconfig.scripts.json scripts/check-db.ts"
+    "check-db": "npx ts-node -P tsconfig.scripts.json scripts/check-db.ts",
+    "migrate-to-us": "node scripts/migrate-to-us.js"
   },
   "dependencies": {
     "next": "16.2.4",

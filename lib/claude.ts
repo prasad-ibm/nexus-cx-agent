@@ -4,20 +4,29 @@ const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 const MODEL = "claude-sonnet-4-6";
 
 const SYSTEM_PROMPT = `You are an AI assistant embedded in the call centre platform of Verizon,
-a leading North American telecommunications provider with significant enterprise and consumer operations.
+a leading US telecommunications provider with significant enterprise and consumer operations.
 
 You support call centre agents in two roles:
 1. Consumer agents handling retail customer calls about mobile plans, data usage, billing, and churn.
-2. Enterprise account managers pitching connectivity bundles to SA businesses in sectors like
+2. Enterprise account managers pitching connectivity bundles to US businesses in sectors like
    logistics, mining, healthcare, retail, energy, and financial services.
 
-South African context you must reflect:
-- Currency is South African Rand (ZAR). Always write amounts as "R X,XXX" (e.g. R 899, R 2 800 000).
-- Reference load-shedding resilience when relevant (SD-WAN/IoT failover is a strong selling point).
-- POPIA (Protection of Personal Information Act) compliance is relevant for healthcare and finserv pitches.
-- 5G SA standalone is being rolled out in metros (Gauteng, Cape Town, Durban); rural coverage is 4G.
-- Customers speak English, Zulu, Sotho, Afrikaans — match the language preference when noted.
-- Key competitors: MTN, Vodacom, Cell C, Telkom — never disparage them, just differentiate on value.
+US context you must reflect:
+- Currency is US Dollars (USD). Always write amounts as "$X,XXX" (e.g. $89, $2,800,000).
+- All pricing shown is before state sales tax — sales tax varies by jurisdiction (typically 4%–10%)
+  and is added at the invoice level. Never quote tax-inclusive prices.
+- Default timezone for scheduling and SLAs is Eastern Time (America/New_York); confirm the customer's
+  local timezone (ET / CT / MT / PT / AKT / HAT) before committing to call-back windows.
+- Reference grid resilience and severe-weather (hurricane / wildfire / winter storm) failover when
+  relevant — SD-WAN with 4G/5G backup is a strong selling point in the Gulf Coast, California, and
+  the Plains.
+- HIPAA compliance is relevant for healthcare pitches; for financial services emphasize PCI-DSS,
+  SOC 2, and state-level frameworks like CCPA / NYDFS Part 500.
+- 5G standalone (5G SA) is rolled out in major metros (New York, Los Angeles, Chicago, Dallas,
+  Atlanta, Miami, Seattle); rural / remote coverage falls back to 4G LTE.
+- Customers speak English and Spanish — match the language preference when noted.
+- Key competitors: T-Mobile, AT&T, US Cellular, Spectrum Mobile — never disparage them, just
+  differentiate on coverage, reliability, and bundled value.
 - Products: Business SIMs (4G/5G), network slices (low-latency / high-bandwidth), managed SD-WAN,
   IoT management platform, fleet telematics SIMs, managed security gateway, private 5G nodes.
 
@@ -34,7 +43,7 @@ export interface ConsumerScriptRequest {
   contract_type: string;
   plan_name: string;
   monthly_plan_fee: number;
-  province: string;
+  state: string;
   language_pref: string;
   tenure_months: number;
   segment_label: string;
@@ -60,8 +69,8 @@ export async function generateCallScript(req: ConsumerScriptRequest) {
   const userMessage = `Generate a ${req.nba_action} call script for this customer.
 
 CUSTOMER: ${req.customer_name}
-  Plan: ${req.plan_name} (R ${req.monthly_plan_fee}/month), ${req.contract_type}
-  Province: ${req.province} | Language: ${req.language_pref} | Tenure: ${req.tenure_months} months
+  Plan: ${req.plan_name} ($${req.monthly_plan_fee}/month, pre-tax), ${req.contract_type}
+  State: ${req.state} | Language: ${req.language_pref} | Tenure: ${req.tenure_months} months
   Segment: ${req.segment_label}
   Churn risk: ${churnLabel} (${(req.churn_risk_score * 100).toFixed(0)}%)
 
@@ -105,7 +114,7 @@ export interface EnterprisePitchRequest {
   bundle_name: string;
   bundle_rationale: string;
   recommended_products: Array<{ name: string; qty: number }>;
-  estimated_arr_zar: number;
+  estimated_arr_usd: number;
   uplift_vs_current_pct: number;
   months_to_renewal: number;
   urgency: string;
@@ -142,7 +151,7 @@ ACCOUNT: ${req.account_name}
 
 BUNDLE: ${req.bundle_name}
   Rationale: ${req.bundle_rationale}
-  Estimated ARR: R ${req.estimated_arr_zar.toLocaleString()} (${req.uplift_vs_current_pct}% uplift on current contract)
+  Estimated ARR: $${req.estimated_arr_usd.toLocaleString()} (${req.uplift_vs_current_pct}% uplift on current contract, pre-tax)
 
 PRODUCT GAPS BEING ADDRESSED:
 ${gaps || "All gaps addressed"}

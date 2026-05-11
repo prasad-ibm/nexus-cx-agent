@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { getConsumer360 } from "@/lib/db";
-import { fmtZAR, fmtDate, fmtPct, churnColor, churnLabel, nbaColor } from "@/lib/format";
+import { fmtUSD, fmtDate, fmtPct, fmtSalesTax, churnColor, churnLabel, nbaColor } from "@/lib/format";
 import { notFound } from "next/navigation";
 import { CallScriptButton } from "./CallScriptButton";
 import { LogInteractionButton } from "./LogInteractionButton";
@@ -22,7 +22,7 @@ export default async function ConsumerPage({
     contract_type: p.contract_type,
     plan_name: p.plan_name,
     monthly_plan_fee: parseFloat(p.monthly_plan_fee ?? "0"),
-    province: p.province,
+    state: p.state,
     language_pref: p.language_pref,
     tenure_months: p.tenure_months ?? 0,
     segment_label: p.segment_label ?? "",
@@ -59,7 +59,7 @@ export default async function ConsumerPage({
             <span className="text-muted-foreground">·</span>
             <span className="text-xs text-muted-foreground">{p.contract_type}</span>
             <span className="text-muted-foreground">·</span>
-            <span className="text-xs text-muted-foreground">{p.province}</span>
+            <span className="text-xs text-muted-foreground">{p.state}</span>
             <span className="text-muted-foreground">·</span>
             <span className="text-xs text-muted-foreground">{p.language_pref}</span>
             {p.is_5g_capable && (
@@ -68,6 +68,9 @@ export default async function ConsumerPage({
           </div>
           <div className="text-xs text-muted-foreground mt-1">
             {p.device_model} ({p.device_os}) · Active since {fmtDate(p.activation_date)} · {p.tenure_months} months tenure
+          </div>
+          <div className="text-xs text-muted-foreground mt-1">
+            {p.time_zone ?? "America/New_York"} · State sales tax {fmtSalesTax(p.sales_tax_pct)}
           </div>
         </div>
         {/* Churn risk badge */}
@@ -81,12 +84,12 @@ export default async function ConsumerPage({
       {/* KPI row */}
       <div className="grid grid-cols-5 gap-4 mb-7">
         <div className="rounded-lg border bg-card p-4">
-          <div className="text-xs text-muted-foreground">Monthly fee</div>
-          <div className="text-xl font-semibold mt-1">{fmtZAR(p.monthly_plan_fee)}</div>
+          <div className="text-xs text-muted-foreground">Monthly fee (pre-tax)</div>
+          <div className="text-xl font-semibold mt-1">{fmtUSD(p.monthly_plan_fee)}</div>
         </div>
         <div className="rounded-lg border bg-card p-4">
           <div className="text-xs text-muted-foreground">ARPU</div>
-          <div className="text-xl font-semibold mt-1">{fmtZAR(p.arpu)}</div>
+          <div className="text-xl font-semibold mt-1">{fmtUSD(p.arpu)}</div>
         </div>
         <div className="rounded-lg border bg-card p-4">
           <div className="text-xs text-muted-foreground">CLV score</div>

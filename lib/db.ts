@@ -33,10 +33,10 @@ export async function searchConsumers(q: string) {
   return query<{
     customer_id: string; msisdn: string; full_name: string;
     contract_type: string; plan_name: string; monthly_plan_fee: string;
-    province: string; churn_risk_score: string; segment_label: string;
+    state: string; churn_risk_score: string; segment_label: string;
   }>(`
     SELECT c.customer_id, c.msisdn, c.full_name, c.contract_type,
-           c.plan_name, c.monthly_plan_fee, c.province,
+           c.plan_name, c.monthly_plan_fee, c.state,
            p.churn_risk_score, g.segment_label
     FROM telco_medallion.bronze_consumer_crm c
     LEFT JOIN telco_medallion.silver_consumer_customer_profile p USING (customer_id)
@@ -51,12 +51,12 @@ export async function searchEnterprises(q: string) {
   const term = `%${q}%`;
   return query<{
     account_id: string; account_name: string; industry_label: string;
-    contract_annual_value: string; billing_province: string;
+    contract_annual_value: string; billing_state: string;
     urgency: string; health_label: string; months_to_renewal: string;
   }>(`
     SELECT s.account_id, s.account_name, s.industry_label,
            s.contract_annual_value, s.months_to_renewal,
-           c.billing_province, b.urgency, h.health_label
+           c.billing_state, b.urgency, h.health_label
     FROM telco_medallion.silver_enterprise_account_summary s
     LEFT JOIN telco_medallion.bronze_enterprise_contract c USING (account_id)
     LEFT JOIN telco_medallion.gold_enterprise_bundle_recommendation b USING (account_id)

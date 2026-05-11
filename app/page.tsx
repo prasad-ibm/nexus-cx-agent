@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { searchConsumers, searchEnterprises, getLandingStats } from "@/lib/db";
-import { fmtZAR, churnColor, churnLabel, urgencyColor, healthColor } from "@/lib/format";
+import { fmtUSD, churnColor, churnLabel, urgencyColor, healthColor } from "@/lib/format";
 import Link from "next/link";
 
 export default async function HomePage({
@@ -78,7 +78,7 @@ export default async function HomePage({
               autoFocus
               placeholder={
                 type === "consumer"
-                  ? "Name, MSISDN (e.g. 27821001001), or customer ID…"
+                  ? "Name, MSISDN (e.g. 14155550001), or customer ID…"
                   : "Company name or account ID (e.g. ACC-001)…"
               }
               className="flex-1 border rounded-md px-3 py-2 text-sm"
@@ -112,7 +112,7 @@ export default async function HomePage({
                 <th className="px-4 py-2.5 font-medium">MSISDN</th>
                 <th className="px-4 py-2.5 font-medium">Plan</th>
                 <th className="px-4 py-2.5 font-medium text-right">Fee/month</th>
-                <th className="px-4 py-2.5 font-medium">Province</th>
+                <th className="px-4 py-2.5 font-medium">State</th>
                 <th className="px-4 py-2.5 font-medium">Segment</th>
                 <th className="px-4 py-2.5 font-medium">Churn risk</th>
                 <th className="px-4 py-2.5"></th>
@@ -130,8 +130,8 @@ export default async function HomePage({
                     <div>{c.plan_name}</div>
                     <div className="text-muted-foreground">{c.contract_type}</div>
                   </td>
-                  <td className="px-4 py-2.5 text-right text-sm">{fmtZAR(c.monthly_plan_fee)}</td>
-                  <td className="px-4 py-2.5 text-xs text-muted-foreground">{c.province}</td>
+                  <td className="px-4 py-2.5 text-right text-sm">{fmtUSD(c.monthly_plan_fee)}</td>
+                  <td className="px-4 py-2.5 text-xs text-muted-foreground">{c.state}</td>
                   <td className="px-4 py-2.5">
                     <span className="text-xs bg-muted px-1.5 py-0.5 rounded border">{c.segment_label ?? "—"}</span>
                   </td>
@@ -171,7 +171,7 @@ export default async function HomePage({
                 <th className="px-4 py-2.5 font-medium">Account</th>
                 <th className="px-4 py-2.5 font-medium">Industry</th>
                 <th className="px-4 py-2.5 font-medium text-right">ACV</th>
-                <th className="px-4 py-2.5 font-medium">Province</th>
+                <th className="px-4 py-2.5 font-medium">State</th>
                 <th className="px-4 py-2.5 font-medium">Renewal</th>
                 <th className="px-4 py-2.5 font-medium">Urgency</th>
                 <th className="px-4 py-2.5 font-medium">O2C Health</th>
@@ -186,8 +186,8 @@ export default async function HomePage({
                     <div className="text-xs text-muted-foreground">{e.account_id}</div>
                   </td>
                   <td className="px-4 py-2.5 text-xs text-muted-foreground">{e.industry_label}</td>
-                  <td className="px-4 py-2.5 text-right font-medium">{fmtZAR(e.contract_annual_value)}</td>
-                  <td className="px-4 py-2.5 text-xs text-muted-foreground">{e.billing_province}</td>
+                  <td className="px-4 py-2.5 text-right font-medium">{fmtUSD(e.contract_annual_value)}</td>
+                  <td className="px-4 py-2.5 text-xs text-muted-foreground">{e.billing_state}</td>
                   <td className="px-4 py-2.5 text-xs text-muted-foreground">
                     {e.months_to_renewal ? `${e.months_to_renewal}mo` : "—"}
                   </td>

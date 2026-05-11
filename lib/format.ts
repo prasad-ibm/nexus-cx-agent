@@ -1,9 +1,9 @@
-export function fmtZAR(amount: number | string | null | undefined): string {
+export function fmtUSD(amount: number | string | null | undefined): string {
   const n = typeof amount === "string" ? parseFloat(amount) : (amount ?? 0);
-  if (isNaN(n)) return "R —";
-  return new Intl.NumberFormat("en-ZA", {
+  if (isNaN(n)) return "$—";
+  return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "ZAR",
+    currency: "USD",
     maximumFractionDigits: 0,
   }).format(n);
 }
@@ -11,7 +11,14 @@ export function fmtZAR(amount: number | string | null | undefined): string {
 export function fmtDate(d: Date | string | null | undefined): string {
   if (!d) return "—";
   const date = typeof d === "string" ? new Date(d) : d;
-  return date.toLocaleDateString("en-ZA", { year: "numeric", month: "short", day: "numeric" });
+  return date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+}
+
+/** Format a US sales-tax rate (e.g. 0.0875 → "8.75%"). */
+export function fmtSalesTax(pct: number | string | null | undefined): string {
+  const n = typeof pct === "string" ? parseFloat(pct) : (pct ?? 0);
+  if (isNaN(n)) return "—";
+  return `${(n * 100).toFixed(2)}%`;
 }
 
 export function fmtPct(v: number | string | null | undefined, decimals = 0): string {
