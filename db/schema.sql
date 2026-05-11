@@ -339,7 +339,7 @@ ON CONFLICT DO NOTHING;
 
 INSERT INTO telco_medallion.bronze_enterprise_contract
 (contract_id,account_id,account_name,industry_code,industry_label,contract_type,start_date,end_date,annual_value_usd,account_manager,billing_state,time_zone,sales_tax_pct,employee_count) VALUES
-('CON-E001','ACC-001','FastTrack Logistics USA',      '4213','Road freight transport',   'ENTERPRISE','2023-01-01','2026-12-31', 280000.00,'Kelly Stevens',  'NY','America/New_York',    0.0888,  320),
+('CON-E001','ACC-001','Aeroflux Logistics',      '4213','Road freight transport',   'ENTERPRISE','2023-01-01','2026-12-31', 280000.00,'Kelly Stevens',  'NY','America/New_York',    0.0888,  320),
 ('CON-E002','ACC-002','Heartland Agri Processors',    '2048','Food manufacturing',       'STANDARD',  '2024-03-01','2027-02-28',  48000.00,'William Jordan', 'IA','America/Chicago',     0.0700,   85),
 ('CON-E003','ACC-003','Long Beach Port Terminals',    '4491','Cargo handling & ports',   'ENTERPRISE','2022-06-01','2025-12-31', 520000.00,'Nina Zhou',      'CA','America/Los_Angeles', 0.0975,  620),
 ('CON-E004','ACC-004','SunTech Renewable Energy',     '4911','Electric power generation','STANDARD',  '2024-09-01','2027-08-31',  72000.00,'Andrew Klein',   'TX','America/Chicago',     0.0825,  140),
@@ -354,7 +354,7 @@ ON CONFLICT DO NOTHING;
 -- =============================================================================
 
 INSERT INTO telco_medallion.silver_enterprise_account_summary VALUES
-('ACC-001','FastTrack Logistics USA',     '4213','Road freight transport',   320, 280000.00,20,FALSE,FALSE,FALSE,FALSE,TRUE, 120,200,  4800.0,12.5,0,1.67,42.0,TRUE, TRUE, TRUE, TRUE, FALSE),
+('ACC-001','Aeroflux Logistics',     '4213','Road freight transport',   320, 280000.00,20,FALSE,FALSE,FALSE,FALSE,TRUE, 120,200,  4800.0,12.5,0,1.67,42.0,TRUE, TRUE, TRUE, TRUE, FALSE),
 ('ACC-002','Heartland Agri Processors',   '2048','Food manufacturing',        85,  48000.00,34,FALSE,FALSE,FALSE,FALSE,FALSE, 60,  0,  1200.0, 5.0,0,1.67,55.0,TRUE, FALSE,TRUE, FALSE,FALSE),
 ('ACC-003','Long Beach Port Terminals',   '4491','Cargo handling & ports',   620, 520000.00, 8,FALSE,FALSE,TRUE, FALSE,FALSE,350,  0, 12000.0,18.2,1,1.43,38.0,TRUE, TRUE, FALSE,TRUE, TRUE),
 ('ACC-004','SunTech Renewable Energy',    '4911','Electric power generation',140,  72000.00,27,FALSE,FALSE,FALSE,FALSE,FALSE, 80,  0,  3200.0, 8.0,0,0.00,70.0,TRUE, TRUE, TRUE, TRUE, FALSE),
@@ -369,7 +369,7 @@ ON CONFLICT DO NOTHING;
 -- =============================================================================
 
 INSERT INTO telco_medallion.gold_enterprise_bundle_recommendation VALUES
-('ACC-001','FastTrack Logistics USA','Road freight transport','Connected Logistics Bundle',
+('ACC-001','Aeroflux Logistics','Road freight transport','Connected Logistics Bundle',
  'Fleet of 200+ IoT SIMs already active. Low-latency slice enables real-time dispatch and route optimization. Managed security addresses interstate data risk. 5G upgrade improves depot operations.',
  '[{"product_id":"PROD-002","name":"Business SIM 5G SA","qty":120},{"product_id":"PROD-003","name":"5G Low-Latency Slice","qty":1},{"product_id":"PROD-005","name":"Managed Security Gateway","qty":2},{"product_id":"PROD-008","name":"Fleet Telematics SIM","qty":200},{"product_id":"PROD-009","name":"IoT Management Platform","qty":1}]',
  120,200,'LOW_LATENCY',2,0,  7280.00,  87360.00,68.5,0.91,'RENEWAL_UPSELL','HIGH'),
@@ -408,7 +408,7 @@ ON CONFLICT DO NOTHING;
 -- =============================================================================
 
 INSERT INTO telco_medallion.gold_finance_o2c_health VALUES
-('ACC-001','FastTrack Logistics USA',     '2025-04',2,  2308.00,0,0,2,  2654.00,0,    0.00,  2654.00,    0.00,0,51.0,1.0,25.0, 0.0,FALSE,FALSE,FALSE,    0.00,    0.00,0.970,'HEALTHY'),
+('ACC-001','Aeroflux Logistics',     '2025-04',2,  2308.00,0,0,2,  2654.00,0,    0.00,  2654.00,    0.00,0,51.0,1.0,25.0, 0.0,FALSE,FALSE,FALSE,    0.00,    0.00,0.970,'HEALTHY'),
 ('ACC-002','Heartland Agri Processors',   '2025-04',1,   330.00,0,0,1,   380.00,0,    0.00,     0.00,  380.00,0,NULL,30.0,NULL,45.6,FALSE,FALSE,FALSE,  380.00,    0.00,0.820,'HEALTHY'),
 ('ACC-003','Long Beach Port Terminals',   '2025-04',3,  7250.00,0,0,3,  8338.00,1, 3910.00,  7820.00, 3910.00,0,44.0,3.0,28.0,21.4,TRUE, FALSE,TRUE,  3910.00,  450.00,0.740,'WATCH'),
 ('ACC-004','SunTech Renewable Energy',    '2025-04',1,   792.00,1,1,1,   911.00,0,    0.00,     0.00,  911.00,0,NULL,2.0, NULL,NULL,FALSE,FALSE,TRUE,   911.00,    0.00,0.650,'WATCH'),
