@@ -3,8 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 const MODEL = "claude-sonnet-4-6";
 
-const SYSTEM_PROMPT = `You are an AI assistant embedded in the call centre platform of Verizon,
-a leading US telecommunications provider with significant enterprise and consumer operations.
+const SYSTEM_PROMPT = `You are an AI assistant embedded in a call centre platform for a leading telecommunications provider.
 
 You support call centre agents in two roles:
 1. Consumer agents handling retail customer calls about mobile plans, data usage, billing, and churn.

@@ -7,7 +7,7 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Verizon · CX Agent",
+  title: "CX Agent",
   description: "Call centre AI agent — consumer and enterprise customer intelligence",
 };
 
@@ -18,8 +18,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="bg-black border-b border-zinc-800">
           <div className="max-w-[1400px] mx-auto px-6 py-3 flex items-center gap-8">
             <div className="flex items-center gap-2">
-              <span className="text-[#ee0000] font-black text-xl tracking-tight">Verizon</span>
-              <span className="text-zinc-500 font-normal text-sm">· CX Agent</span>
+              <span className="text-primary font-black text-xl tracking-tight">CX Agent</span>
+              <span className="text-zinc-500 font-normal text-sm">· Call Centre Intelligence</span>
             </div>
             <NavLinks />
           </div>
